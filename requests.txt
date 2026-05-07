@@ -1,0 +1,62 @@
+# main.py
+Mblack = '\033[1;30m'
+Ired = '\033[1;31m'
+Dgreen = '\033[1;32m'
+Nyellow = '\033[1;33m'
+Iblue = '\033[1;34m'
+Gpurple = '\033[1;35m'
+Hcyan = '\033[1;36m'
+Twhite = '\033[1;37m'
+VRCRM = '\033[0;0m'
+
+import os
+import sys
+import time
+import subprocess
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+try:
+    from database import banner, cep, cpf, nome, placa, cnpj, ip, meuip, covid19, root
+except Exception as e:
+    clear()
+    print(f"{Ired}Erro ao importar os módulos da database.{VRCRM}")
+    print(e)
+    input("\nPressione ENTER...")
+    sys.exit(1)
+
+clear()
+
+while True:
+    try:
+        banner.menu()
+        opc = int(input(f'\n{Dgreen}Digite o número da opção: {Twhite}'))
+    except:
+        opc = 0
+
+    if opc == 1: nome.consultar()
+    elif opc == 2: cpf.consultar()
+    elif opc == 3: cep.consultar()
+    elif opc == 4: placa.consultar()
+    elif opc == 5: cnpj.consultar()
+    elif opc == 6: ip.consultar()
+    elif opc == 7: meuip.consultar()
+    elif opc == 8: covid19.consultar()
+    elif opc == 9: root.consultar()
+    elif opc == 10:
+        clear()
+        print("Atualizando...")
+        subprocess.call(['git', 'pull'])
+        os.execl(sys.executable, sys.executable, *sys.argv)
+    elif opc == 11:
+        clear()
+        print(f"{Dgreen}Até mais!{VRCRM}")
+        break
+    elif opc == 12:
+        os.system('termux-open-url https://wa.me/5512988789266')
+    elif opc == 13:
+        os.system('termux-open-url https://discord.gg/kgXhZzGJDY')
+    else:
+        print(f"{Ired}Opção inválida!{VRCRM}")
+        time.sleep(1.5)
